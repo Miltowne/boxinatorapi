@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "wkLPVUskjq1OxkVQeT8FMOtLtxiCyHP6Wg6z87mwlF++bZp+xoYQ1E8hftLNpAe0XTb5ck208HVDvydue7z9SA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\TJonas\\Desktop\\Project\\Backend Project\\SQLQuery\\Boxianator\\Boxinator\\Boxinator_API\\Boxinator_API\\Boxinator_API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\TJonas\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\TJonas\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\TJonas\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\TJonas\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\TJonas\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\TJonas\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}
