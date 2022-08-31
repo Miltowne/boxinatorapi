@@ -14,9 +14,9 @@ namespace Boxinator_API.Model
         public string Country { get; set; }
         public int PostalCode { get; set; }
         public int PhoneNumber { get; set; }
-        public ICollection<Shipment> Shipments { get; set; }
         public DateTime DateOfBirth { get; set; }
         public AccountType AccountType { get; set; }
+        public ICollection<Shipment> Shipments { get; set; }
 
     }
 }
