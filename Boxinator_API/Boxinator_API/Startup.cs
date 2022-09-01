@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Boxinator_API
@@ -33,18 +32,15 @@ namespace Boxinator_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddJsonOptions(x => 
-            x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
-            services.AddDbContext<BoxApiDbContext>(options => 
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
-            
+            services.AddDbContext<BoxApiDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { 
-                    Title = "Boxinator_API", 
-                    Version = "v1" 
+                c.SwaggerDoc("v1", new OpenApiInfo {
+                    Title = "Boxinator_API",
+                    Version = "v1"
                 });
-            
+
                 //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
