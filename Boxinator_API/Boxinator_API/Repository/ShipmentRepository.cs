@@ -1,35 +1,81 @@
-﻿using Boxinator_API.Interfaces;
+﻿using Boxinator_API.Data;
+using Boxinator_API.Interfaces;
 using Boxinator_API.Model;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Boxinator_API.Repository
 {
     public class ShipmentRepository : IShipmentRepository
     {
-        public Task<Shipment> AddShipment(Shipment shipment)
+        private readonly BoxApiDbContext _dbContext;
+
+        public ShipmentRepository(BoxApiDbContext dbContext)
         {
-            throw new System.NotImplementedException();
+            _dbContext = dbContext;
+        }
+        /// <summary>
+        /// Add a shipment
+        /// </summary>
+        /// <param name="shipment"></param>
+        /// <returns></returns>
+        public async Task AddShipment(Shipment shipment)
+        {
+            await _dbContext.Shipments.AddAsync(shipment);
+        }
+        /// <summary>
+        /// Delete a shipment
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task DeleteShipment(int id)
+        {
+            Shipment shipment = await _dbContext.Shipments.FindAsync(id);
+            _dbContext.Shipments.Remove(shipment);
+        }
+        /// <summary>
+        /// Get all shipments
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<Shipment>> GetAllShipments()
+        {
+            return await _dbContext.Shipments.ToListAsync();
+        }
+        /// <summary>
+        /// Get a shipment by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Shipment> GetShipmentById(int id)
+        {
+            return await _dbContext.Shipments.FirstOrDefaultAsync(s=>s.ShipmentId == id);
+        }
+        /// <summary>
+        /// Update a shipment
+        /// </summary>
+        /// <param name="shipment"></param>
+        public void UpdateShipment(Shipment shipment)
+        {
+            _dbContext.Entry(shipment).State = EntityState.Modified;
         }
 
-        public Task DeleteShipment(int id)
+        /// <summary>
+        /// Saves changes of dbContext
+        /// </summary>
+        public void Save()
         {
-            throw new System.NotImplementedException();
+            _dbContext.SaveChanges();
         }
-
-        public Task<IEnumerable<Shipment>> GetAllShipments(Shipment shipment)
+        /// <summary>
+        /// Returns true if shipment exist in database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool ShipmentExist(int id)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<Shipment> GetShipmentById(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task UpdateShipment(Shipment shipment)
-        {
-            throw new System.NotImplementedException();
+            return _dbContext.Shipments.Any(s => s.ShipmentId == id);
         }
     }
 }

@@ -6355,19 +6355,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\AMajor\\.nuget\\packages\\": {}
+    "C:\\Users\\TJonas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Programming\\.NET\\CASE\\boxinatorapi\\Boxinator_API\\Boxinator_API\\Boxinator_API.csproj",
+      "projectUniqueName": "C:\\Users\\TJonas\\Desktop\\Project\\Backend Project\\SQLQuery\\Boxianator\\Boxinator\\Boxinator_API\\Boxinator_API\\Boxinator_API.csproj",
       "projectName": "Boxinator_API",
-      "projectPath": "C:\\Programming\\.NET\\CASE\\boxinatorapi\\Boxinator_API\\Boxinator_API\\Boxinator_API.csproj",
-      "packagesPath": "C:\\Users\\AMajor\\.nuget\\packages\\",
-      "outputPath": "C:\\Programming\\.NET\\CASE\\boxinatorapi\\Boxinator_API\\Boxinator_API\\obj\\",
+      "projectPath": "C:\\Users\\TJonas\\Desktop\\Project\\Backend Project\\SQLQuery\\Boxianator\\Boxinator\\Boxinator_API\\Boxinator_API\\Boxinator_API.csproj",
+      "packagesPath": "C:\\Users\\TJonas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\TJonas\\Desktop\\Project\\Backend Project\\SQLQuery\\Boxianator\\Boxinator\\Boxinator_API\\Boxinator_API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\AMajor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\TJonas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
