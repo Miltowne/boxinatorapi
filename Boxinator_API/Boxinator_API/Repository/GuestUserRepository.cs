@@ -1,5 +1,7 @@
-﻿using Boxinator_API.Interfaces;
+﻿using Boxinator_API.Data;
+using Boxinator_API.Interfaces;
 using Boxinator_API.Model;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,29 +9,65 @@ namespace Boxinator_API.Repository
 {
     public class GuestUserRepository : IGuestUserRepository
     {
-        public Task<GuestUser> CreateUser(GuestUser guestUser)
+        private readonly BoxApiDbContext _context;
+        public GuestUserRepository(BoxApiDbContext context)
         {
-            throw new System.NotImplementedException();
+            _context = context;
         }
 
-        public Task DeleteUser(int id)
+        /// <summary>
+        /// Creates a GuestUser to the table
+        /// </summary>
+        /// <param name="guestUser">The GuestUser to be added</param>
+        /// <returns>The GuestUser that was added</returns>
+        public async Task<GuestUser> CreateGuestUser(GuestUser guestUser)
         {
-            throw new System.NotImplementedException();
+            _context.GuestUsers.Add(guestUser);
+            await _context.SaveChangesAsync();
+            return guestUser;
         }
 
-        public Task<IEnumerable<GuestUser>> GetAllGuestUsers(GuestUser guestUser)
+        /// <summary>
+        /// Deletes a GuestUser from the table 
+        /// </summary>
+        /// <param name="id">The Id of the GuestUser that will be deleted</param>
+        /// <returns></returns>
+        public async Task DeleteUser(int id)
         {
-            throw new System.NotImplementedException();
+            var guestUser = await _context.GuestUsers.FindAsync(id);
+
+            _context.GuestUsers.Remove(guestUser);
+            await _context.SaveChangesAsync();
         }
 
-        public Task<GuestUser> GetGuestUserById(int id)
+        /// <summary>
+        /// Gets all GuestUsers from the table
+        /// </summary>
+        /// <returns>A IEnumerable list with all GuestUsers</returns>
+        public async Task<IEnumerable<GuestUser>> GetAllGuestUsers()
         {
-            throw new System.NotImplementedException();
+            return await _context.GuestUsers.ToListAsync();
         }
 
-        public Task UpdateGuestUser(GuestUser guestUser)
+        /// <summary>
+        /// Gets a GuestUser by Id
+        /// </summary>
+        /// <param name="id">The Id of the GuestUser</param>
+        /// <returns>The GuestUser</returns>
+        public async Task<GuestUser> GetGuestUserById(int id)
         {
-            throw new System.NotImplementedException();
+            return await _context.GuestUsers.FirstOrDefaultAsync(g => g.GuestUserId == id);
+        }
+
+        /// <summary>
+        /// Updates a GuestUser in the table by provided Id
+        /// </summary>
+        /// <param name="guestUser">The GuestUser that will be updated</param>
+        /// <returns></returns>
+        public async Task UpdateGuestUser(GuestUser guestUser)
+        {
+           _context.Entry(guestUser).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Boxinator_API.Interfaces
     {
         // Basic CRUD
         public Task<Shipment> GetShipmentById(int id);
-        public Task<IEnumerable<Shipment>> GetAllShipments(Shipment shipment);
+        public Task<IEnumerable<Shipment>> GetAllShipments();
         public Task<Shipment> AddShipment(Shipment shipment);
         public Task UpdateShipment(Shipment shipment);
         public Task DeleteShipment(int id);

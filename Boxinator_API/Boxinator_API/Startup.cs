@@ -1,4 +1,6 @@
 using Boxinator_API.Data;
+using Boxinator_API.Interfaces;
+using Boxinator_API.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,7 +13,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Boxinator_API
@@ -32,8 +36,22 @@ namespace Boxinator_API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Boxinator_API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Title = "Boxinator_API", 
+                    Version = "v1" 
+                });
+            
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+                c.IncludeXmlComments(xmlPath);
             });
+
+            services.AddScoped<IGuestUserRepository, GuestUserRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IShipmentRepository, ShipmentRepository>();
+            services.AddAutoMapper(typeof(Startup));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
