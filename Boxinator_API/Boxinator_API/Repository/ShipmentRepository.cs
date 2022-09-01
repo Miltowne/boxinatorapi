@@ -17,7 +17,7 @@ namespace Boxinator_API.Repository
             throw new System.NotImplementedException();
         }
 
-        public Task<IEnumerable<Shipment>> GetAllShipments(Shipment shipment)
+        public Task<IEnumerable<Shipment>> GetAllShipments()
         {
             throw new System.NotImplementedException();
         }

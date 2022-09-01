@@ -12,6 +12,6 @@ namespace Boxinator_API.Interfaces
         public Task<IEnumerable<GuestUser>> GetAllGuestUsers();
         public Task<GuestUser> CreateGuestUser(GuestUser guestUser);
         public Task UpdateGuestUser(GuestUser guestUser);
-        public Task DeleteUser(int id);
+        public Task DeleteGuestUser(int id);
     }
 }
