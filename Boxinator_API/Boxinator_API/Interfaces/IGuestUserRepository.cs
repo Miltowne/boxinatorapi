@@ -9,8 +9,8 @@ namespace Boxinator_API.Interfaces
     {
         // Basic CRUD
         public Task<GuestUser> GetGuestUserById (int id);
-        public Task<IEnumerable<GuestUser>> GetAllGuestUsers(GuestUser guestUser);
-        public Task<GuestUser> CreateUser(GuestUser guestUser);
+        public Task<IEnumerable<GuestUser>> GetAllGuestUsers();
+        public Task<GuestUser> CreateGuestUser(GuestUser guestUser);
         public Task UpdateGuestUser(GuestUser guestUser);
         public Task DeleteUser(int id);
     }
