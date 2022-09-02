@@ -14,6 +14,10 @@ namespace Boxinator_API.Model
         [Required]
         public string Destination { get; set; }
         public string BoxColor { get; set; }
+
+
+        public int? UserId { get; set; }
+        public int? GuestUserId { get; set; }
         [Required]
         public ShipmentStatus ShipmentStatus { get; set; }
     }
