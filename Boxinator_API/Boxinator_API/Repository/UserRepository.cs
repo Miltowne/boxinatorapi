@@ -1,5 +1,7 @@
-﻿using Boxinator_API.Interfaces;
+﻿using Boxinator_API.Data;
+using Boxinator_API.Interfaces;
 using Boxinator_API.Model;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -7,29 +9,64 @@ namespace Boxinator_API.Repository
 {
     public class UserRepository : IUserRepository
     {
-        public Task<User> AddUser(User user)
+        private readonly BoxApiDbContext _context;
+        public UserRepository(BoxApiDbContext context)
         {
-            throw new System.NotImplementedException();
+            _context = context;
         }
-
-        public Task DeleteUser(int id)
+        /// <summary>
+        /// Add a user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task<User> AddUser(User user)
         {
-            throw new System.NotImplementedException();
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+            return user;
         }
-
-        public Task<IEnumerable<User>> GetAllUsers()
+        /// <summary>
+        /// Delete a user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public async Task DeleteUser(int id)
         {
-            throw new System.NotImplementedException();
+            var user = await _context.Users.FindAsync(id);
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
         }
-
-        public Task<User> GetUserById(int id)
+        /// <summary>
+        /// Get all users
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public async Task<IEnumerable<User>> GetAllUsers()
         {
-            throw new System.NotImplementedException();
+            return await _context.Users.ToListAsync();
         }
-
-        public Task UpdateUser(User user)
+        /// <summary>
+        /// Get user by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public async Task<User> GetUserById(int id)
         {
-            throw new System.NotImplementedException();
+            return await _context.Users.FirstOrDefaultAsync(g => g.UserId == id);
+        }
+        /// <summary>
+        /// Update user
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public async Task UpdateUser(User user)
+        {
+            _context.Entry(user).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
     }
 }
