@@ -2,6 +2,7 @@
 using Boxinator_API.Model.Const.DTO.Shipment;
 using Boxinator_API.Model;
 using Boxinator_API.Model.Const.DTO.User;
+using System.Linq;
 
 namespace Boxinator_API.Profiles
 {
@@ -18,7 +19,10 @@ namespace Boxinator_API.Profiles
 
             // User -> UserGetDTO Mapping
             CreateMap<User, UserGetDTO>()
-                .ReverseMap();
+                .ForMember(uDTO => uDTO.Shipments, opt => opt
+                .MapFrom(u => u.Shipments
+                .Select(shipment => shipment.ShipmentId)
+                .ToList()));
 
             // User -> UserUpdateDTO Mapping
             CreateMap<User, UserUpdateDTO>()
