@@ -2,5 +2,6 @@
 {
     public class GuestUserCreateDTO
     {
+        public string Email { get; set; }
     }
 }

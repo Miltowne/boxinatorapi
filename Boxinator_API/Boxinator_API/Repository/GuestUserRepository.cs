@@ -32,7 +32,7 @@ namespace Boxinator_API.Repository
         /// </summary>
         /// <param name="id">The Id of the GuestUser that will be deleted</param>
         /// <returns></returns>
-        public async Task DeleteUser(int id)
+        public async Task DeleteGuestUser(int id)
         {
             var guestUser = await _context.GuestUsers.FindAsync(id);
 
