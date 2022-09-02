@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Programming\\.NET\\CASE\\boxinatorapi\\Boxinator_API\\Boxinator_API\\Boxinator_API.csproj": {}
   },
   "projects": {
@@ -12,9 +13,30 @@
         "projectPath": "C:\\Programming\\.NET\\CASE\\boxinatorapi\\Boxinator_API\\Boxinator_API\\Boxinator_API.csproj",
         "packagesPath": "C:\\Users\\AMajor\\.nuget\\packages\\",
         "outputPath": "C:\\Programming\\.NET\\CASE\\boxinatorapi\\Boxinator_API\\Boxinator_API\\obj\\",
+=======
+    "C:\\Users\\SAjani\\Desktop\\project\\boxinatorapi\\Boxinator_API\\Boxinator_API\\Boxinator_API.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\SAjani\\Desktop\\project\\boxinatorapi\\Boxinator_API\\Boxinator_API\\Boxinator_API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\SAjani\\Desktop\\project\\boxinatorapi\\Boxinator_API\\Boxinator_API\\Boxinator_API.csproj",
+        "projectName": "Boxinator_API",
+        "projectPath": "C:\\Users\\SAjani\\Desktop\\project\\boxinatorapi\\Boxinator_API\\Boxinator_API\\Boxinator_API.csproj",
+        "packagesPath": "C:\\Users\\SAjani\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\SAjani\\Desktop\\project\\boxinatorapi\\Boxinator_API\\Boxinator_API\\obj\\",
+>>>>>>> dc67e4615f6e12fbc8ffb924a281403556348be6
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\AMajor\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+          "C:\\Users\\SAjani\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+>>>>>>> dc67e4615f6e12fbc8ffb924a281403556348be6
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
