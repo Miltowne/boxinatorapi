@@ -95,7 +95,7 @@ namespace Boxinator_API.Controllers
         {
             Shipment domainShipment = _mapper.Map<Shipment>(shipmentDTO);
             await _repo.AddShipment(domainShipment);
-
+            _repo.Save();
             return CreatedAtAction("GetShipmentById",
                 new { id = domainShipment.ShipmentId },
                 _mapper.Map<ShipmentGetDTO>(domainShipment));

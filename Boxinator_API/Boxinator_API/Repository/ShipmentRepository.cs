@@ -68,19 +68,16 @@ namespace Boxinator_API.Repository
         {
             _dbContext.SaveChanges();
         }
-<<<<<<< HEAD
+
         /// <summary>
         /// Returns true if shipment exist in database
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         public bool ShipmentExist(int id)
-=======
-
-        public Task<IEnumerable<Shipment>> GetAllShipments()
->>>>>>> AM-guestUserDbCalls
         {
             return _dbContext.Shipments.Any(s => s.ShipmentId == id);
+
         }
     }
 }
