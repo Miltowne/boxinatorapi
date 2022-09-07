@@ -2,6 +2,7 @@
 using Boxinator_API.Interfaces;
 using Boxinator_API.Model;
 using Boxinator_API.Model.Const.DTO.GuestUser;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net.Mime;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Boxinator_API.Controllers
 {
+    //[EnableCors("Policy1")]
     [Route("api/v1/[controller]")]
     [ApiController]
     [Produces(MediaTypeNames.Application.Json)]

@@ -28,31 +28,42 @@ namespace Boxinator_API
         }
 
         public IConfiguration Configuration { get; }
-
+        //readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         // This method gets called by the runtime. Use this method to add services to the container.
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<BoxApiDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "Boxinator_API",
-                    Version = "v1"
-                });
-
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new OpenApiInfo
+            //    {
+            //        Title = "Boxinator_API",
+            //        Version = "v1"
+            //    });
                 //    //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 //    //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-
                 //    //c.IncludeXmlComments(xmlPath);
-            });
-
+            //});
             services.AddScoped<IGuestUserRepository, GuestUserRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IShipmentRepository, ShipmentRepository>();
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:4200",
+                              "http://localhost:4200/register",
+                              "http://localhost:4200/main",
+                              "http://localhost:4200/profile",
+                              "https://localhost:44378/swagger/index.html")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      });
+            });
+            services.AddControllers();
             services.AddAutoMapper(typeof(Startup));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,11 +72,13 @@ namespace Boxinator_API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                    app.UseSwagger();
-                    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Boxinator_API v1"));
-                }
+                //app.UseSwagger();
+                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Boxinator_API v1"));
+            }
 
             app.UseHttpsRedirection();
+
+            app.UseCors();
 
             app.UseRouting();
 

@@ -5,6 +5,7 @@ using Boxinator_API.Model.Const.DTO.GuestUser;
 using Boxinator_API.Model.Const.DTO.Shipment;
 using Boxinator_API.Model.Const.DTO.User;
 using Boxinator_API.Repository;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Boxinator_API.Controllers
 {
+    //[EnableCors("Policy1")]
     [Route("api/v1/users")]
     [ApiController]
     [Produces(MediaTypeNames.Application.Json)]
