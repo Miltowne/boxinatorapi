@@ -34,17 +34,17 @@ namespace Boxinator_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<BoxApiDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionString")));
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo
-            //    {
-            //        Title = "Boxinator_API",
-            //        Version = "v1"
-            //    });
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Boxinator_API",
+                    Version = "v1"
+                });
                 //    //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 //    //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 //    //c.IncludeXmlComments(xmlPath);
-            //});
+            });
             services.AddScoped<IGuestUserRepository, GuestUserRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IShipmentRepository, ShipmentRepository>();
@@ -72,8 +72,8 @@ namespace Boxinator_API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseSwagger();
-                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Boxinator_API v1"));
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Boxinator_API v1"));
             }
 
             app.UseHttpsRedirection();
