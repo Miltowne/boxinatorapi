@@ -62,14 +62,14 @@ namespace Boxinator_API.Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        [HttpPost("CreateUser")]
-        [ActionName(nameof(CreateUser))]
+        [HttpPost()]
+        //[ActionName(nameof(CreateUser))]
         public async Task<ActionResult<UserCreateDTO>> CreateUser(UserCreateDTO userDTO)
         {
 
             var newUser = _mapper.Map<User>(userDTO);
             newUser = await _userRepository.AddUser(newUser);
-            return CreatedAtAction(nameof(CreateUser), new { id = newUser.UserId }, userDTO);
+            return CreatedAtAction(nameof(GetUserById), new { id = newUser.UserId }, userDTO);
 
         }
         /// <summary>
