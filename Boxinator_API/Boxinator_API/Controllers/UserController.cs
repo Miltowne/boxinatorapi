@@ -47,6 +47,22 @@ namespace Boxinator_API.Controllers
             return Ok(userDTO);
         }
         /// <summary>
+        /// Gets user by email
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("email/{email}")]
+        public async Task<ActionResult<UserGetDTO>> GetUserByEmail(string email)
+        {
+            var user = await _userRepository.GetUserByEmail(email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var userDTO = _mapper.Map<UserGetDTO>(user);
+            return Ok(userDTO);
+        }
+        /// <summary>
         /// Gets all users
         /// </summary>
         /// <returns></returns>
