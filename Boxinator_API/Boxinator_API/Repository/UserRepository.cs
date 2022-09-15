@@ -58,6 +58,16 @@ namespace Boxinator_API.Repository
             return await _context.Users.FirstOrDefaultAsync(g => g.UserId == id);
         }
         /// <summary>
+        /// Get user by email
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public async Task<User> GetUserByEmail(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(g => g.Email == email);
+        }
+        /// <summary>
         /// Update user
         /// </summary>
         /// <param name="user"></param>
