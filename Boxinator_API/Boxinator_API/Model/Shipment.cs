@@ -15,6 +15,9 @@ namespace Boxinator_API.Model
         public string Destination { get; set; }
         public string BoxColor { get; set; }
 
+        public User user { get; set; }
+
+        public GuestUser guestUser { get; set; }
 
         public int? UserId { get; set; }
         public int? GuestUserId { get; set; }

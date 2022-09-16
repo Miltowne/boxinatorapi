@@ -3,6 +3,7 @@ using Boxinator_API.Interfaces;
 using Boxinator_API.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Boxinator_API.Repository
@@ -45,7 +46,7 @@ namespace Boxinator_API.Repository
         /// <exception cref="System.NotImplementedException"></exception>
         public async Task<IEnumerable<User>> GetAllUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Include(u=>u.Shipments).ThenInclude(s=>s.user).ToListAsync();
         }
         /// <summary>
         /// Get user by id
@@ -55,7 +56,7 @@ namespace Boxinator_API.Repository
         /// <exception cref="System.NotImplementedException"></exception>
         public async Task<User> GetUserById(int id)
         {
-            return await _context.Users.FirstOrDefaultAsync(g => g.UserId == id);
+            return await _context.Users.Include(u => u.Shipments).ThenInclude(s => s.user).FirstOrDefaultAsync(g => g.UserId == id);
         }
         /// <summary>
         /// Get user by email
@@ -65,7 +66,7 @@ namespace Boxinator_API.Repository
         /// <exception cref="System.NotImplementedException"></exception>
         public async Task<User> GetUserByEmail(string email)
         {
-            return await _context.Users.FirstOrDefaultAsync(g => g.Email == email);
+            return await _context.Users.Include(u => u.Shipments).ThenInclude(s => s.user).FirstOrDefaultAsync(g => g.Email == email);
         }
         /// <summary>
         /// Update user
@@ -77,6 +78,33 @@ namespace Boxinator_API.Repository
         {
             _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+        }
+        /// <summary>
+        /// Adds shipment to User
+        /// </summary>
+        /// <returns></returns>
+        public async Task AddShipmentToUser(User user, Shipment shipment)
+        {
+            user.Shipments.Add(shipment);
+            await UpdateUser(user);
+        }
+
+        /// <summary>
+        /// Saves changes of dbContext
+        /// </summary>
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Returns true if user exist in database
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public bool UserExist(int id)
+        {
+            return _context.Users.Any(s => s.UserId == id);
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Boxinator_API.Data;
+using Boxinator_API.Interfaces;
 using Boxinator_API.Model;
 using Boxinator_API.Model.Const.DTO.Shipment;
+using Boxinator_API.Model.DTO.Shipment;
 using Boxinator_API.Repository;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -22,9 +24,13 @@ namespace Boxinator_API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ShipmentRepository _repo;
+        private readonly UserRepository _userRepo;
+        private readonly IGuestUserRepository _guestUserRepo;
 
-        public ShipmentController(IMapper mapper, BoxApiDbContext context)
+        public ShipmentController(IMapper mapper, BoxApiDbContext context, IGuestUserRepository guestUserRepository)
         {
+            _guestUserRepo = guestUserRepository;
+            _userRepo = new UserRepository(context);
             _mapper = mapper;
             _repo = new ShipmentRepository(context);
         }
@@ -47,6 +53,48 @@ namespace Boxinator_API.Controllers
             foreach (var shipmentItem in shipmentList)
             {
                shipList.Add(_mapper.Map<ShipmentGetDTO>(shipmentItem));
+            }
+            return Ok(shipmentList);
+        }
+
+        /// <summary>
+        /// Get shipments from user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("user/{id}")]
+        public async Task<ActionResult<IEnumerable<ShipmentGetDTO>>> GetUserShipments(int id)
+        {
+            if (!_userRepo.UserExist(id))
+            {
+                return NotFound();
+            }
+            User user = await _userRepo.GetUserById(id);
+            List<ShipmentGetDTO> shipmentList = new();
+            foreach (var shipment in user.Shipments)
+            {
+                shipmentList.Add(_mapper.Map<ShipmentGetDTO>(shipment));
+            }
+            return Ok(shipmentList);
+        }
+
+        /// <summary>
+        /// Get shipments from guestUser
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("guestuser/{id}")]
+        public async Task<ActionResult<IEnumerable<ShipmentGetDTO>>> GetGuestUserShipments(int id)
+        {
+            if (!_userRepo.UserExist(id))
+            {
+                return NotFound();
+            }
+            GuestUser guestUser = await _guestUserRepo.GetGuestUserById(id);
+            List<ShipmentGetDTO> shipmentList = new();
+            foreach (var shipment in guestUser.Shipments)
+            {
+                shipmentList.Add(_mapper.Map<ShipmentGetDTO>(shipment));
             }
             return Ok(shipmentList);
         }
@@ -94,6 +142,22 @@ namespace Boxinator_API.Controllers
         /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<Shipment>> AddShipment(ShipmentCreateDTO shipmentDTO)
+        {
+            Shipment domainShipment = _mapper.Map<Shipment>(shipmentDTO);
+            await _repo.AddShipment(domainShipment);
+            _repo.Save();
+            return CreatedAtAction("GetShipmentById",
+                new { id = domainShipment.ShipmentId },
+                _mapper.Map<ShipmentGetDTO>(domainShipment));
+        }
+        
+        /// <summary>
+        /// Add a new Shipment and apply guestuser id
+        /// </summary>
+        /// <param name="shipmentDTO"></param>
+        /// <returns></returns>
+        [HttpPost("guestuser")]
+        public async Task<ActionResult<Shipment>> AddShipmentToGuestUser(ShipmentGuestUserCreateDTO shipmentDTO)
         {
             Shipment domainShipment = _mapper.Map<Shipment>(shipmentDTO);
             await _repo.AddShipment(domainShipment);
