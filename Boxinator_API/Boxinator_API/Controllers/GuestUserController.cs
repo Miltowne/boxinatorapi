@@ -59,8 +59,8 @@ namespace Boxinator_API.Controllers
         /// </summary>
         /// <param name="guestUserDTO">The GuestUser that will be added</param>
         /// <returns>The added GuestUser</returns>
-        [HttpPost("CreateGuestUser")]
-        [ActionName(nameof(CreateGuestUser))]
+        [HttpPost]
+        //[ActionName(nameof(CreateGuestUser))]
         public async Task<ActionResult<GuestUserCreateDTO>> CreateGuestUser(GuestUserCreateDTO guestUserDTO)
         {
             var newGuestUser = _mapper.Map<GuestUser>(guestUserDTO);

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Boxinator_API.Model;
 using Boxinator_API.Model.Const.DTO.Shipment;
+using Boxinator_API.Model.DTO.Shipment;
 
 namespace Boxinator_API.Profiles
 {
@@ -22,6 +23,12 @@ namespace Boxinator_API.Profiles
             // Shipment -> ShipmentUpdateDTO Mapping
             CreateMap<Shipment, ShipmentUpdateDTO>()
                 .ReverseMap();
+
+            // Shipment -> ShipmentGuestUserCreateDTO Mapping
+            CreateMap<Shipment, ShipmentGuestUserCreateDTO>()
+                .ReverseMap();
+
+            
 
 
         }

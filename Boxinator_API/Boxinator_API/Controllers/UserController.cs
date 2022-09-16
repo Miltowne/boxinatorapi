@@ -20,15 +20,16 @@ namespace Boxinator_API.Controllers
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     [ApiConventionType(typeof(DefaultApiConventions))]
-    public class UserController: ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly UserRepository _userRepository;
+        private readonly ShipmentRepository _shipmentRepository;
         private readonly IMapper _mapper;
 
         public UserController(BoxApiDbContext boxApiDbContext, IMapper mapper)
         {
             _userRepository = new UserRepository(boxApiDbContext);
-            _mapper = mapper; 
+            _mapper = mapper;
         }
         /// <summary>
         /// Gets user by id
@@ -117,6 +118,43 @@ namespace Boxinator_API.Controllers
         {
             await _userRepository.DeleteUser(id);
             return Ok("Selected User has been deleted");
+        }
+
+        /// <summary>
+        /// Update shipment in user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="Users"></param>
+        /// <param name="Shipments"></param>
+        /// <returns></returns>
+
+        [HttpPut("shipments/{id}/{shipmentId}")]
+        public async Task<IActionResult> UpdateMovieCharacters(int id, int shipmentId)
+        {
+            if (!_userRepository.UserExist(id))
+            {
+                return NotFound();
+            }
+
+            Shipment shipment = await _shipmentRepository.GetShipmentById(shipmentId);
+            if (shipment == null)
+            {
+                return BadRequest("Shipment doesnt exist!");
+            }
+            User user = await _userRepository.GetUserById(id);
+
+            await _userRepository.AddShipmentToUser(user, shipment);
+
+            //try
+            //{
+            //    _userRepository.Save();
+            //}
+            //catch (DbUpdateConcurrencyException)
+            //{
+            //    throw;
+            //}
+
+            return NoContent();
         }
     }
 }

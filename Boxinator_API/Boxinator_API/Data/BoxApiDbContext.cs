@@ -22,6 +22,14 @@ namespace Boxinator_API.Data
         // Seed data for the database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Shipments)
+                .WithOne(s => s.user);
+
+            modelBuilder.Entity<GuestUser>()
+                .HasMany(u => u.Shipments)
+                .WithOne(s => s.guestUser);
+
             // User seed data
             modelBuilder.Entity<User>()
                 .HasData(new User { UserId = 1, FirstName = "Lars", LastName = "Svensson", Email = "lars.svensson@hotmail.com", Country = "Sweden", PostalCode = 12345, PhoneNumber = 0192987801 });
